@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Golf project — home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mist:#E6EBE4;
+  --paper:#F7F9F5;
+  --ink:#16241D;
+  --ink-60:rgba(22,36,29,.62);
+  --ink-38:rgba(22,36,29,.38);
+  --fairway:#2E5A43;
+  --fairway-lt:#7BA48C;
+  --flag:#B93225;
+  --sand:#C2A052;
+  --line:rgba(22,36,29,.14);
+  --line-soft:rgba(22,36,29,.07);
+  --radius:3px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--mist);color:var(--ink);
+  font-family:"Public Sans",system-ui,sans-serif;font-size:15px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px 96px}
+
+h1,h2,h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;margin:0;letter-spacing:-.02em;line-height:1.02}
+.eyebrow{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--fairway);font-weight:700}
+
+/* nav */
+.pagenav{display:flex;gap:5px;padding:22px 0 0;flex-wrap:wrap}
+.pagenav a{
+  font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  text-decoration:none;color:var(--ink-60);border:1px solid var(--line);border-radius:100px;
+  padding:7px 15px;background:var(--paper);font-weight:500;
+}
+.pagenav a:hover{border-color:var(--ink);color:var(--ink)}
+.pagenav a[aria-current="page"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.pagenav a:focus-visible{outline:2px solid var(--flag);outline-offset:2px}
+.pagenav + .masthead{padding-top:30px}
+
+/* masthead */
+.masthead{padding:30px 0 34px;border-bottom:1.5px solid var(--ink)}
+.masthead h1{font-size:clamp(38px,8.5vw,74px);font-weight:800;margin-top:14px}
+.masthead h1 em{font-style:normal;color:var(--fairway-lt)}
+.sub{margin:16px 0 0;max-width:52ch;color:var(--ink-60);font-size:15.5px}
+.vitals{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.vital{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.06em;border:1px solid var(--line);border-radius:100px;padding:5px 12px;background:var(--paper)}
+.vital b{font-weight:700;color:var(--fairway)}
+
+/* sections */
+.sec{padding:52px 0 0}
+.sec-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+.sec-head h2{font-size:clamp(22px,4vw,30px);font-weight:700}
+.sec-note{color:var(--ink-60);max-width:62ch;margin:10px 0 26px;font-size:14.5px}
+
+/* page cards */
+.pagecards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.pagecard{
+  display:block;text-decoration:none;color:var(--ink);background:var(--paper);
+  border:1px solid var(--line);border-left:3px solid var(--fairway);border-radius:var(--radius);
+  padding:24px 24px 22px;transition:border-color .15s ease,transform .15s ease;
+}
+.pagecard:hover{border-color:var(--fairway);transform:translateY(-1px)}
+.pagecard:focus-visible{outline:2px solid var(--flag);outline-offset:3px}
+.pagecard.alt{border-left-color:var(--sand)}
+.pagecard .eyebrow{margin-bottom:12px}
+.pagecard h3{font-size:24px;font-weight:700;margin-bottom:9px}
+.pagecard p{margin:0 0 16px;font-size:13.5px;color:var(--ink-60)}
+.pagecard .go{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fairway);font-weight:700}
+.pagecard.alt .go{color:#8a6d1f}
+.pagecard .sections{margin-top:16px;padding-top:16px;border-top:1px solid var(--line-soft);display:flex;flex-wrap:wrap;gap:6px}
+.pagecard .sections span{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--ink-38);border:1px solid var(--line);border-radius:100px;padding:4px 9px;background:var(--mist)}
+
+.callout{
+  border-left:3px solid var(--flag);background:var(--paper);border-radius:var(--radius);
+  padding:16px 18px;font-size:14px;color:var(--ink-60);max-width:66ch;margin-top:26px;
+}
+.callout b{color:var(--ink)}
+
+.principles{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.principle{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:15px 16px}
+.principle .n{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;color:var(--fairway-lt);font-weight:700;margin-bottom:6px}
+.principle p{margin:0;font-size:13px;color:var(--ink-60)}
+
+footer{margin-top:64px;padding-top:20px;border-top:1.5px solid var(--ink);font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--ink-38);letter-spacing:.05em;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+@media (max-width:640px){
+  .masthead{padding-top:38px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="pagenav" aria-label="Pages">
+  <a href="index.html" aria-current="page">Home</a>
+  <a href="golf-bag-spec.html">Bag</a>
+  <a href="golf-feel.html">Feel &amp; focus</a>
+</nav>
+
+<header class="masthead">
+  <div class="eyebrow">Golf project &nbsp;·&nbsp; updated 20 Aug 2026</div>
+  <h1>Two pages.<br><em>One swing.</em></h1>
+  <p class="sub">Club-fitting and practice, developed together. Test on the course, measure what happens, adjust — nothing changes on a hunch.</p>
+  <div class="vitals">
+    <span class="vital">Height <b>5&prime;4&Prime;</b></span>
+    <span class="vital">Index <b>17.2</b></span>
+    <span class="vital">Hand <b>RH</b></span>
+    <span class="vital">Coach <b>Patrick</b></span>
+  </div>
+</header>
+
+<section class="sec">
+  <div class="sec-head"><div class="eyebrow">Start here</div></div>
+  <div class="pagecards">
+    <a class="pagecard" href="golf-bag-spec.html">
+      <div class="eyebrow">Equipment</div>
+      <h3>Bag spec</h3>
+      <p>Every club settled so far — lofts, lengths, shafts, weights, and the reasoning behind each one. Live yardage ladder, trim &amp; swingweight calculator, and the range session planner.</p>
+      <span class="go">Open the bag spec &rarr;</span>
+      <div class="sections">
+        <span>Yardage ladder</span>
+        <span>Woods</span>
+        <span>Irons &amp; wedges</span>
+        <span>Trim &amp; weight calc</span>
+        <span>Range session</span>
+      </div>
+    </a>
+    <a class="pagecard alt" href="golf-feel.html">
+      <div class="eyebrow">Practice</div>
+      <h3>Feel &amp; focus</h3>
+      <p>Why slowing down works, and how to keep it from disappearing on the course. Drills, translated cues, and the short list of swing thoughts actually worth taking to the tee.</p>
+      <span class="go">Open feel &amp; focus &rarr;</span>
+      <div class="sections">
+        <span>Internal vs external</span>
+        <span>Plane &amp; release</span>
+        <span>Translate the cue</span>
+        <span>Pick one</span>
+        <span>The ritual</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head"><div class="eyebrow">The idea</div><h2>Two things, one loop</h2></div>
+  <p class="sec-note">Equipment and practice run in parallel and inform each other. Neither changes on a theory — both change on what actually happens with a ball in the air.</p>
+  <div class="principles">
+    <div class="principle"><div class="n">Fitting</div><p>Head feel drives tempo. If a club gives feedback, the swing takes care of itself.</p></div>
+    <div class="principle"><div class="n">Practice</div><p>Internal focus builds a movement off the ball. External focus is what performs it.</p></div>
+    <div class="principle"><div class="n">Both</div><p>Don't fix what's working. Put the unknown variable in the unproven club or the unproven cue — never both at once.</p></div>
+  </div>
+
+  <div class="callout">
+    <b>Testing rule:</b> don't work on equipment and swing changes in the same session. Each needs the other held still to mean anything.
+  </div>
+</section>
+
+<footer>
+  <span>Golf project · 20 Aug 2026</span>
+  <span>Bag spec &amp; Feel &amp; focus</span>
+</footer>
+
+</div>
+</body>
+</html>
