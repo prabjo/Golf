@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Feel &amp; focus — the club, not the body</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mist:#E6EBE4;
+  --paper:#F7F9F5;
+  --ink:#16241D;
+  --ink-60:rgba(22,36,29,.62);
+  --ink-38:rgba(22,36,29,.38);
+  --fairway:#2E5A43;
+  --fairway-lt:#7BA48C;
+  --flag:#B93225;
+  --sand:#C2A052;
+  --line:rgba(22,36,29,.14);
+  --line-soft:rgba(22,36,29,.07);
+  --radius:3px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--mist);color:var(--ink);
+  font-family:"Public Sans",system-ui,sans-serif;font-size:15px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px 96px}
+
+h1,h2,h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;margin:0;letter-spacing:-.02em;line-height:1.02}
+.eyebrow{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--fairway);font-weight:700}
+
+/* nav */
+.pagenav{display:flex;gap:5px;padding:22px 0 0;flex-wrap:wrap}
+.pagenav a{
+  font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  text-decoration:none;color:var(--ink-60);border:1px solid var(--line);border-radius:100px;
+  padding:7px 15px;background:var(--paper);font-weight:500;
+}
+.pagenav a:hover{border-color:var(--ink);color:var(--ink)}
+.pagenav a[aria-current="page"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.pagenav a:focus-visible{outline:2px solid var(--flag);outline-offset:2px}
+
+/* on-page index */
+.pageindex{margin:26px 0 0;padding:16px 20px;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius)}
+.pageindex-label{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-38);margin-bottom:10px}
+.pageindex-links{display:flex;flex-wrap:wrap;gap:7px}
+.pageindex-links a{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.03em;text-decoration:none;color:var(--ink-60);border:1px solid var(--line);border-radius:100px;padding:6px 13px;background:var(--mist)}
+.pageindex-links a:hover{border-color:var(--fairway);color:var(--fairway)}
+.pageindex-links a:focus-visible{outline:2px solid var(--flag);outline-offset:2px}
+
+/* masthead */
+.masthead{padding:30px 0 30px;border-bottom:1.5px solid var(--ink)}
+.masthead h1{font-size:clamp(38px,8.5vw,74px);font-weight:800;margin-top:14px}
+.masthead h1 em{font-style:normal;color:var(--fairway-lt)}
+.sub{margin:16px 0 0;max-width:48ch;color:var(--ink-60);font-size:15.5px}
+.vitals{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.vital{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.06em;border:1px solid var(--line);border-radius:100px;padding:5px 12px;background:var(--paper)}
+.vital b{font-weight:700;color:var(--fairway)}
+
+/* sections */
+.sec{padding:52px 0 0}
+.sec-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+.sec-head h2{font-size:clamp(22px,4vw,30px);font-weight:700}
+.sec-note{color:var(--ink-60);max-width:62ch;margin:10px 0 26px;font-size:14.5px}
+
+/* two-mode table */
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mode{border:1px solid var(--line);border-radius:var(--radius);padding:18px 18px 16px;background:var(--paper)}
+.mode.internal{border-left:3px solid var(--ink)}
+.mode.external{border-left:3px solid var(--sand)}
+.mode h3{font-size:17px;font-weight:700;margin-bottom:4px}
+.mode .when{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-38);margin-bottom:12px}
+.mode p{margin:0 0 10px;font-size:13.5px;color:var(--ink-60)}
+.mode ul{margin:0;padding-left:17px;font-size:13.5px;color:var(--ink-60)}
+.mode li{margin-bottom:4px}
+.mode .say{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink);display:block;margin-bottom:10px;line-height:1.45}
+
+/* translator */
+.trans-bar{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.flipall{
+  font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  background:transparent;border:1px solid var(--ink);border-radius:100px;padding:8px 15px;cursor:pointer;
+  color:var(--ink);font-weight:500;
+}
+.flipall:hover{background:var(--ink);color:var(--paper)}
+.flipall:focus-visible{outline:2px solid var(--flag);outline-offset:2px}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));gap:12px}
+.flip{background:none;border:0;padding:0;perspective:1100px;cursor:pointer;text-align:left;font:inherit;min-height:172px}
+.flip:focus-visible{outline:2px solid var(--flag);outline-offset:3px;border-radius:var(--radius)}
+.flip-in{position:relative;width:100%;height:100%;min-height:172px;transition:transform .5s cubic-bezier(.4,.15,.2,1);transform-style:preserve-3d}
+.flip[aria-pressed="true"] .flip-in{transform:rotateY(180deg)}
+.face{
+  position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  border-radius:var(--radius);padding:16px 17px;display:flex;flex-direction:column;
+}
+.face-front{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--ink)}
+.face-back{background:var(--fairway);border:1px solid var(--fairway);transform:rotateY(180deg);color:var(--paper)}
+.face .lab{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;font-weight:700;margin-bottom:12px}
+.face-front .lab{color:var(--ink-38)}
+.face-back .lab{color:rgba(247,249,245,.55)}
+.face .cue{font-family:"JetBrains Mono",monospace;font-size:13.5px;line-height:1.45;color:var(--ink)}
+.face-back .cue{font-family:"Bricolage Grotesque",sans-serif;font-size:20px;font-weight:700;line-height:1.12;letter-spacing:-.02em;color:var(--paper)}
+.face .foot{margin-top:auto;padding-top:12px;font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.11em;text-transform:uppercase}
+.face-front .foot{color:var(--fairway)}
+.face-back .foot{color:rgba(247,249,245,.5)}
+
+/* numbered sequence */
+.seq{counter-reset:q;list-style:none;padding:0;margin:0}
+.seq li{counter-increment:q;position:relative;padding:16px 0 16px 50px;border-top:1px solid var(--line);max-width:68ch}
+.seq li::before{
+  content:counter(q,decimal-leading-zero);position:absolute;left:0;top:18px;
+  font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;color:var(--fairway-lt);
+}
+.seq h3{font-size:16.5px;font-weight:700;margin-bottom:4px}
+.seq p{margin:0;font-size:13.5px;color:var(--ink-60)}
+.seq li.added{background:linear-gradient(90deg,rgba(194,160,82,.13),transparent 62%)}
+.seq li.added::before{color:var(--sand)}
+.seq .mins{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-38);margin-left:9px}
+
+/* drills */
+.drills{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:12px}
+.drill{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:16px 17px 15px}
+.drill-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.drill h3{font-size:17px;font-weight:700}
+.drill p{margin:0 0 10px;font-size:13.5px;color:var(--ink-60)}
+.drill .why{margin:0;padding-top:10px;border-top:1px solid var(--line-soft);font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--fairway);letter-spacing:-.01em}
+.drill.hero{border-left:3px solid var(--sand)}
+
+.tag{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:100px;font-weight:700;white-space:nowrap}
+.tag.internal{background:var(--ink);color:var(--paper)}
+.tag.external{background:var(--sand);color:#2b2410}
+
+/* pick one — core cues */
+.pick{counter-reset:p;list-style:none;padding:0;margin:0}
+.pick li{counter-increment:p;position:relative;padding:18px 0 18px 54px;border-top:1px solid var(--line)}
+.pick li::before{
+  content:counter(p);position:absolute;left:0;top:18px;width:32px;height:32px;border-radius:50%;
+  background:var(--fairway);color:var(--paper);display:flex;align-items:center;justify-content:center;
+  font-family:"JetBrains Mono",monospace;font-weight:700;font-size:13px;
+}
+.pick li.best::before{background:var(--sand);color:#2b2410}
+.pick .cue{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:19px;letter-spacing:-.01em;margin-bottom:4px}
+.pick .cue .badge{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--sand);font-weight:700;margin-left:9px;vertical-align:middle}
+.pick .why{margin:0;font-size:13.5px;color:var(--ink-60)}
+
+/* reset panel */
+.reset{background:var(--ink);color:var(--paper);border-radius:var(--radius);padding:26px 22px}
+.reset h2{color:var(--paper)}
+.reset .sec-note{color:rgba(247,249,245,.62)}
+.reset ol{counter-reset:r;list-style:none;padding:0;margin:0}
+.reset li{counter-increment:r;position:relative;padding:15px 0 15px 46px;border-top:1px solid rgba(247,249,245,.16);max-width:66ch}
+.reset li::before{content:counter(r);position:absolute;left:0;top:16px;font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;color:var(--sand)}
+.reset b{font-family:"Bricolage Grotesque",sans-serif;font-size:16px;font-weight:700;display:block;margin-bottom:3px}
+.reset span{font-size:13.5px;color:rgba(247,249,245,.66)}
+
+/* ask */
+.ask{border-top:1px solid var(--line);padding:16px 0;max-width:68ch}
+.ask h3{font-size:16px;font-weight:700;margin-bottom:5px}
+.ask p{margin:0;font-size:13.5px;color:var(--ink-60)}
+
+/* source */
+.source{display:flex;gap:18px;flex-wrap:wrap;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+.source-info{flex:1 1 280px}
+.source-info h3{font-size:18px;font-weight:700;margin-bottom:5px}
+.source-info p{margin:0;font-size:13.5px;color:var(--ink-60)}
+.source-links{display:flex;gap:8px;flex-wrap:wrap}
+.source-links a{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:1px solid var(--ink);border-radius:100px;padding:10px 17px;color:var(--ink);font-weight:600}
+.source-links a.primary{background:var(--ink);color:var(--paper)}
+.source-links a:hover{background:var(--fairway);border-color:var(--fairway);color:var(--paper)}
+.source-note{width:100%;font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--ink-38);margin-top:4px}
+
+.callout{
+  border-left:3px solid var(--flag);background:var(--paper);border-radius:var(--radius);
+  padding:16px 18px;font-size:14px;color:var(--ink-60);max-width:66ch;margin-top:26px;
+}
+.callout b{color:var(--ink)}
+
+footer{margin-top:64px;padding-top:20px;border-top:1.5px solid var(--ink);font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--ink-38);letter-spacing:.05em;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+@media (max-width:640px){
+  .modes{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="pagenav" aria-label="Pages">
+  <a href="index.html">Home</a>
+  <a href="golf-bag-spec.html">Bag</a>
+  <a href="golf-feel.html" aria-current="page">Feel &amp; focus</a>
+</nav>
+
+<header class="masthead">
+  <div class="eyebrow">Practice notes &nbsp;·&nbsp; updated 20 Aug 2026</div>
+  <h1>The club,<br><em>not the body.</em></h1>
+  <p class="sub">Best ball-striking comes from slowing down and feeling the clubhead. Worst comes from forcing it and auditing my body mid-swing. This page runs start to finish: before the range, during it, and what actually travels to the course.</p>
+  <div class="vitals">
+    <span class="vital">Best strikes <b>Slower</b></span>
+    <span class="vital">Failure mode <b>Internal drift</b></span>
+    <span class="vital">On course <b>One thought</b></span>
+  </div>
+</header>
+
+<nav class="pageindex" aria-label="Jump to section">
+  <div class="pageindex-label">On this page</div>
+  <div class="pageindex-links">
+    <a href="#sec-focus">01 Two ways to pay attention</a>
+    <a href="#sec-recall">02 Before the range</a>
+    <a href="#sec-plane">03 Plane &amp; release</a>
+    <a href="#sec-translate">04 Translate the cue</a>
+    <a href="#sec-finding">05 Finding the head</a>
+    <a href="#sec-pick">06 Pick one</a>
+    <a href="#sec-course">07 The ritual</a>
+    <a href="#sec-reset">08 When it falls apart</a>
+    <a href="#sec-ask">09 Ask Patrick</a>
+    <a href="#sec-source">10 Source</a>
+  </div>
+</nav>
+
+<!-- 01 principle -->
+<section class="sec" id="sec-focus">
+  <div class="sec-head"><div class="eyebrow">01</div><h2>Two ways to pay attention</h2></div>
+  <p class="sec-note">Attention aimed at the body versus attention aimed at the club. Research on motor learning (Gabriele Wulf's work, among others) finds external focus reliably produces better strikes and better retention than internal focus — the effect holds for scratch golfers, not just beginners. But both have a job. The mistake is using the wrong one at the wrong time.</p>
+
+  <div class="modes">
+    <div class="mode internal">
+      <h3>Internal</h3>
+      <div class="when">For learning &middot; slow &middot; off ball</div>
+      <span class="say">"Shift to the left heel."<br>"Keep the head still."</span>
+      <p>Attention on body parts. You cannot build a movement you cannot feel, so this is how a pattern gets installed.</p>
+      <ul>
+        <li>Drill work, no ball</li>
+        <li>Half speed or slower</li>
+        <li>No target, no score</li>
+        <li>Never on the course</li>
+      </ul>
+    </div>
+    <div class="mode external">
+      <h3>External</h3>
+      <div class="when">For playing &middot; full speed &middot; at a target</div>
+      <span class="say">"Follow the clubface."<br>"Throw the paint."</span>
+      <p>Attention on the club, the ball, or the target. Lets the pattern run without interference, which is where the speed and the strike quality live.</p>
+      <ul>
+        <li>Every ball struck at a target</li>
+        <li>All eighteen holes</li>
+        <li>Every pre-shot rehearsal</li>
+        <li>The back half of every range session</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout">
+    <b>The actual failure isn't the drill — it's the missing handoff.</b> A session that ends on internal cues sends you to the first tee still running the checklist. Every practice block needs a deliberate switch back before it counts as finished.
+  </div>
+</section>
+
+<!-- 02 before the range -->
+<section class="sec" id="sec-recall">
+  <div class="sec-head"><div class="eyebrow">02</div><h2>Before the range</h2></div>
+  <p class="sec-note">Patrick's five-minute sequence, one minute each, no ball. Step 06 is the addition — without it the session ends in drill mode and the internal cues travel with you.</p>
+  <ol class="seq" id="recallList"></ol>
+</section>
+
+<!-- 03 danny maude -->
+<section class="sec" id="sec-plane">
+  <div class="sec-head"><div class="eyebrow">03</div><h2>Plane &amp; release</h2></div>
+  <p class="sec-note">The most useful outside material found so far — Danny Maude's "How to Hit Perfect Iron Shots." Two drills build the hands-ahead-at-impact position without ever thinking about the position; two images deliver it on course. Full source at the bottom of the page.</p>
+  <div class="drills" id="danny"></div>
+</section>
+
+<!-- 04 translator -->
+<section class="sec" id="sec-translate">
+  <div class="sec-head"><div class="eyebrow">04</div><h2>Translate the cue</h2></div>
+  <p class="sec-note">Every drill cue has an external twin that produces the same motion without the body-checking. Learn the left-hand side on the range. Take only the right-hand side toward the course. Tap a card to turn it over.</p>
+
+  <div class="trans-bar">
+    <button class="flipall" id="flipall" aria-pressed="false">Show all translations</button>
+  </div>
+  <div class="cards" id="cards"></div>
+</section>
+
+<!-- 05 drills -->
+<section class="sec" id="sec-finding">
+  <div class="sec-head"><div class="eyebrow">05</div><h2>Finding the head</h2></div>
+  <p class="sec-note">Five ways to rebuild the sense of where the clubhead is. All of them work by making body-thinking impossible rather than by asking you to stop.</p>
+  <div class="drills" id="drills"></div>
+</section>
+
+<!-- 06 pick one -->
+<section class="sec" id="sec-pick">
+  <div class="sec-head"><div class="eyebrow">06</div><h2>Pick one</h2></div>
+  <p class="sec-note">Everything above is raw material. This is what actually goes to the course — one thought, held all round. Sports psychologist Bob Rotella's advice points the same way: once you're set up over the ball, the mind should be quiet except for this.</p>
+  <ol class="pick" id="pickList"></ol>
+</section>
+
+<!-- 07 ritual -->
+<section class="sec" id="sec-course">
+  <div class="sec-head"><div class="eyebrow">07</div><h2>The ritual</h2></div>
+  <p class="sec-note">Same five steps on every full shot, every round. The routine is what carries the external focus onto the course — it is the delivery mechanism, not a superstition.</p>
+  <ol class="seq" id="ritual"></ol>
+
+  <div class="callout">
+    <b>Hold the thought all round.</b> Swapping mid-round is how three bad holes become nine. If it stops working, finish the round on it anyway and change it next time out, not mid-way through this one.
+  </div>
+</section>
+
+<!-- 08 reset -->
+<section class="sec" id="sec-reset">
+  <div class="reset">
+    <div class="sec-head"><div class="eyebrow" style="color:var(--sand)">08</div><h2>When it falls apart</h2></div>
+    <p class="sec-note">This will happen. The goal is not preventing it — it is catching it by the second bad shot instead of the sixth.</p>
+    <ol id="resetList"></ol>
+  </div>
+</section>
+
+<!-- 09 ask -->
+<section class="sec" id="sec-ask">
+  <div class="sec-head"><div class="eyebrow">09</div><h2>Ask Patrick</h2></div>
+  <p class="sec-note">Open questions on the drill sequence. The right arm &amp; wrist question is resolved — see the translator glossary above.</p>
+  <div id="asks"></div>
+  <p class="sec-note" style="margin-top:4px"><b style="color:var(--ink)">Alignment stick</b> — two different drills, same tool. Aimed at the hips at setup, it's a pre-shot check. Held against the shaft during a slow wind-up, it's Danny Maude's plane-feedback drill above. Neither is something to think about mid-swing.</p>
+</section>
+
+<!-- 10 source -->
+<section class="sec" id="sec-source">
+  <div class="sec-head"><div class="eyebrow">10</div><h2>Source</h2></div>
+  <div class="source">
+    <div class="source-info">
+      <h3>Danny Maude — "How to Hit Perfect Iron Shots"</h3>
+      <p>Practice plan behind the plane and release drills above. Uploaded 20 Aug 2026.</p>
+    </div>
+    <div class="source-links">
+      <a class="primary" href="danny-maude-perfect-iron-shots.pdf" target="_blank" rel="noopener">Open PDF</a>
+      <a href="https://www.dannymaude.com" target="_blank" rel="noopener">dannymaude.com</a>
+    </div>
+    <div class="source-note">danny-maude-perfect-iron-shots.pdf &middot; ~22&nbsp;MB &mdash; large for a repo if publishing to GitHub Pages; worth compressing, or linking his site as the primary reference instead.</div>
+  </div>
+</section>
+
+<footer>
+  <span>Feel &amp; focus · 20 Aug 2026</span>
+  <span>Card state is not saved between visits</span>
+</footer>
+
+</div>
+
+<script>
+/* ---------- recall sequence ---------- */
+const recall = [
+  { t:'Takeaway', m:'1 min',
+    d:'Weight shifting to the right foot, toward the heel. Slow, no ball.' },
+  { t:'Shift', m:'1 min',
+    d:'Near the top, around ninety percent — pressure moves to the left heel. Feel the step forward, left cheek sitting on a chair.' },
+  { t:'Rotate', m:'1 min',
+    d:'Left leg straightening, which lets the hip start turning. Full swing motion, balanced on the left heel. Later: add the impact position — hips open forty-five degrees, hands ahead of the ball, weight seventy left.' },
+  { t:'Combine', m:'1 min',
+    d:'Steps one to three together, head staying reasonably steady.' },
+  { t:'Sequence', m:'1 min',
+    d:'All of it, up to tempo. This is the last internal step.' },
+  { t:'Hand it over', m:'3–5 swings', added:true,
+    d:'Drop every body cue. Swing to one external thought only — see "Pick one" below. No mechanics, no checking. This step is what converts the drill into golf, and skipping it is the whole problem.' },
+];
+document.getElementById('recallList').innerHTML = recall.map(s =>
+  '<li' + (s.added ? ' class="added"' : '') + '>' +
+    '<h3>' + s.t + '<span class="mins">' + s.m + '</span></h3>' +
+    '<p>' + s.d + '</p>' +
+  '</li>'
+).join('');
+
+/* ---------- danny maude drills ---------- */
+const danny = [
+  { n:'Alignment stick', tag:'internal',
+    p:'Hold a stick against the shaft, wind the swing up and back down slowly. Too vertical coming down and it crashes into the body — the slice pattern. Too far under and it also crashes in — the hook pattern. Feel for it swinging clear both ways.',
+    w:'Range only — becomes "swing along the rod" once felt' },
+  { n:'Trail-arm rotation', tag:'internal',
+    p:'Rotate the trail forearm inward, keep the palm ahead of the fingers all the way to the finish. Releasing early throws the arm away from the body and costs coordination.',
+    w:'Range only — feeds the release below' },
+  { n:'Paint the arc', tag:'external', hero:true,
+    p:'Imagine painting the arc of the swing going back, either arm. The palm naturally leads the fingers when you paint — same shape as the rotation drill, without thinking about the arm.',
+    w:'Backswing feel, ready for the course' },
+  { n:'Throw the paint', tag:'external', hero:true,
+    p:'Strokes get strong approaching impact, then through impact imagine throwing the paint out in front of the ball, at a wall in front of you — not behind, the direction matters.',
+    w:'Release feel, ready for the course' },
+];
+document.getElementById('danny').innerHTML = danny.map(d =>
+  '<div class="drill' + (d.hero ? ' hero' : '') + '">' +
+    '<div class="drill-head"><h3>' + d.n + '</h3><span class="tag ' + d.tag + '">' + d.tag + '</span></div>' +
+    '<p>' + d.p + '</p>' +
+    '<p class="why">' + d.w + '</p>' +
+  '</div>'
+).join('');
+
+/* ---------- translator cards ---------- */
+const pairs = [
+  { int:'Shift weight to the right foot, toward the heel',
+    ext:'Let the head swing back and take you with it' },
+  { int:'Pressure to the left heel near the top — "step forward"',
+    ext:'Step into the shot as the head starts to fall' },
+  { int:'Left leg straightens so the hips can rotate',
+    ext:'Push the ground away and sling the head through' },
+  { int:'Hands ahead at impact, weight 70 left / 30 right',
+    ext:'Throw the paint out in front of the ball' },
+  { int:'Keep the head still',
+    ext:'Brush the grass just in front of the ball' },
+  { int:'Right wrist hinges, elbow folds to 90°, lifts to the shoulder — palm faces away from target at the top',
+    ext:'Let the club swing up and settle pointing away from the target' },
+];
+
+const cardsEl = document.getElementById('cards');
+cardsEl.innerHTML = pairs.map((p,i) =>
+  '<button class="flip" aria-pressed="false" aria-label="Cue: ' + p.int + '. Activate to show the external translation.">' +
+    '<div class="flip-in">' +
+      '<div class="face face-front">' +
+        '<div class="lab">Range cue</div>' +
+        '<div class="cue">' + p.int + '</div>' +
+        '<div class="foot">Tap to translate &rarr;</div>' +
+      '</div>' +
+      '<div class="face face-back">' +
+        '<div class="lab">Take this to the course</div>' +
+        '<div class="cue">' + p.ext + '</div>' +
+        '<div class="foot">&larr; Back</div>' +
+      '</div>' +
+    '</div>' +
+  '</button>'
+).join('');
+
+const flips = [...cardsEl.querySelectorAll('.flip')];
+flips.forEach(b => b.addEventListener('click', () => {
+  b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+  syncFlipAll();
+}));
+
+const flipAllBtn = document.getElementById('flipall');
+function syncFlipAll(){
+  const allOn = flips.every(b => b.getAttribute('aria-pressed') === 'true');
+  flipAllBtn.setAttribute('aria-pressed', allOn ? 'true' : 'false');
+  flipAllBtn.textContent = allOn ? 'Back to range cues' : 'Show all translations';
+}
+flipAllBtn.addEventListener('click', () => {
+  const turnOn = flipAllBtn.getAttribute('aria-pressed') !== 'true';
+  flips.forEach(b => b.setAttribute('aria-pressed', turnOn ? 'true' : 'false'));
+  syncFlipAll();
+});
+
+/* ---------- finding the head drills ---------- */
+const drills = [
+  { n:'Swoosh', hero:true,
+    p:'Grip the club at the head end and swing the grip end. Listen for where the whoosh peaks — it should happen past the ball, not at the top of the downswing.',
+    w:'Doubles as real speed work' },
+  { n:'Eyes closed',
+    p:'Half-speed swings with your eyes shut. Track where the head is the whole way. Two minutes resets a lot.',
+    w:'Removes every visual cue' },
+  { n:'Lead arm only',
+    p:'One-handed half swings with the lead arm. Impossible to muscle, and the head weight becomes impossible to ignore.',
+    w:'Forcing simply will not work' },
+  { n:'Feet together',
+    p:'Hit balls with your feet touching. Any attempt to force the swing puts you off balance immediately.',
+    w:'Instant honesty about tempo' },
+  { n:'Long waggle', hero:true,
+    p:'Two or three slow rehearsal passes before every shot, deliberately feeling head weight. Not a nervous twitch — an actual feel check.',
+    w:'The one that transfers to the course' },
+];
+document.getElementById('drills').innerHTML = drills.map(d =>
+  '<div class="drill' + (d.hero ? ' hero' : '') + '">' +
+    '<h3>' + d.n + '</h3>' +
+    '<p>' + d.p + '</p>' +
+    '<p class="why">' + d.w + '</p>' +
+  '</div>'
+).join('');
+
+/* ---------- pick one ---------- */
+const pick = [
+  { c:'Follow the clubface', badge:'Best so far', best:true,
+    w:'You follow it, it doesn\u2019t follow you. Found 16 Aug — the biggest single click yet. Default until it stops working.' },
+  { c:'Swing along the rod', badge:null,
+    w:'The felt line from the alignment-stick drill, imagined rather than held. This exact image is the one directly tested in swing-path research.' },
+  { c:'Toss and catch a ball at the top', badge:null,
+    w:'Tempo and transition.' },
+  { c:'Throw the paint out in front of the ball', badge:null,
+    w:'Release and extension through impact.' },
+];
+document.getElementById('pickList').innerHTML = pick.map(p =>
+  '<li' + (p.best ? ' class="best"' : '') + '>' +
+    '<div class="cue">' + p.c + (p.badge ? '<span class="badge">' + p.badge + '</span>' : '') + '</div>' +
+    '<p class="why">' + p.w + '</p>' +
+  '</li>'
+).join('');
+
+/* ---------- ritual ---------- */
+const ritual = [
+  { t:'Stand behind the ball', d:'Pick the smallest target you can actually see. Not "the green" — a branch, a bunker edge, one section of flag.' },
+  { t:'One rehearsal swing', d:'Eyes on the target, not the club. Feel head weight through the pass. This is the waggle drill doing its job under pressure.' },
+  { t:'Step in and set the face', d:'Clubface to the target first, then build the stance around it. Never the other way round.' },
+  { t:'One look, one breath', d:'A second look at the target and one slow breath out. Any more than one look and doubt gets a chance to speak.' },
+  { t:'Swing to the thought', d:'The single external thought from "Pick one," nothing else. If a body cue turns up here, step off and start the routine again — that is cheaper than the shot it would have cost.' },
+];
+document.getElementById('ritual').innerHTML = ritual.map(s =>
+  '<li><h3>' + s.t + '</h3><p>' + s.d + '</p></li>'
+).join('');
+
+/* ---------- reset ---------- */
+const reset = [
+  ['Name it', 'Say it plainly to yourself: "I am in my body." Recognising the drift is most of the fix, and it takes a second.'],
+  ['Go back to feel, not fix', 'Two slow waggles feeling head weight before the next shot. Do not diagnose anything. There is nothing to diagnose mid-round.'],
+  ['Club up and swing at seventy-five percent', 'One extra club, softer swing. Nothing rebuilds tempo faster, and it plays directly into the slowing-down that already works.'],
+  ['Hold the one thought', 'Do not go shopping for a new swing thought. Whatever you picked on the first tee stays until the eighteenth green.'],
+  ['Park the mechanics', 'Write it down for the range if you must. Nothing gets rebuilt between here and the clubhouse.'],
+];
+document.getElementById('resetList').innerHTML = reset.map(r =>
+  '<li><b>' + r[0] + '</b><span>' + r[1] + '</span></li>'
+).join('');
+
+/* ---------- asks ---------- */
+const asks = [
+  ['Step 04 — "head remaining still"', 'Some movement away from the target is normal in good swings, and pinning it can restrict the turn. Is the cue meant literally, or as a guard against sliding?'],
+  ['Where does the handoff belong?', 'After every drill session, or only before a round? And should it happen with a ball or without?'],
+  ['Step 03 — leg then hips, or together?', 'Is the left leg straightening meant to cause the hip rotation, or just permit it? Changes how actively to push.'],
+];
+document.getElementById('asks').innerHTML = asks.map(a =>
+  '<div class="ask"><h3>' + a[0] + '</h3><p>' + a[1] + '</p></div>'
+).join('');
+</script>
+</body>
+</html>
